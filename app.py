@@ -1,6 +1,6 @@
 import os
-
 from flask import Flask, render_template
+from discord.ext import commands, tasks
 import asyncio
 import datetime
 import discord
@@ -10,23 +10,25 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-
-from discord.ext import commands, tasks
 app = Flask(__name__)
 discord_intents = discord.Intents.default()
 discord_intents.message_content = True
 discord_intents.members = True
-discord_token= os.getenv("discord")
+discord_token = os.getenv("discord")
 client = commands.Bot(intents=discord_intents, status=discord.Status.online, command_prefix='!')
-
 is_striming_on = False
 strimg_name = ""
 
+
 @app.route("/")
 def index():
-    client.run(discord_token)
     return render_template('./index.html')
 
+
+@app.route("/start")
+def bot_start():
+    client.run(discord_token)
+    return "시작했어요"
 
 @client.event
 async def on_ready():
@@ -80,4 +82,3 @@ async def Get_Info(client: discord.ext.commands.Bot):
         else:
             pass
         await asyncio.sleep(60)
-
