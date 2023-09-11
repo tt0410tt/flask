@@ -1,10 +1,10 @@
 import os
 from flask import Flask, render_template
-from discord.ext import commands, tasks
 import asyncio
 import datetime
 import discord
 import requests
+from discord.ext import commands, tasks
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 
@@ -82,3 +82,4 @@ async def Get_Info(client: discord.ext.commands.Bot):
         else:
             pass
         await asyncio.sleep(60)
+app.run()
